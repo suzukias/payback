@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block body %}
+   <h1>借金返済アプリ</h1> 
+   {% for post in posts %}
+   <p>日付： {{ post.due.date() }}</p>
+   <p>内容： {{ post.detail}}</p>
+   {% endfor %}
+{% endblock %}
