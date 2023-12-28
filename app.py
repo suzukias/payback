@@ -10,7 +10,7 @@ db = SQLAlchemy(app)
 
 class POST(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(30), nullable=False)
+    choice = db.Column(db.Boolean)
     detail = db.Column(db.String(30))
     due = db.Column(db.DateTime, nullable=False)
 
@@ -25,11 +25,11 @@ def index():
         posts = POST.query.all()
         return render_template('index.html', posts=posts)
     else:
-        title = request.form.get('title')
+        choice = request.form.get('choice', default=False, type=bool)
         detail = request.form.get('detail')
         due = request.form.get('due')
         due = datetime.strptime(due, '%Y-%m-%d')
-        new_post = POST(title=title, detail=detail, due=due)
+        new_post = POST(choice=choice, detail=detail, due=due)
 
         db.session.add(new_post)
         db.session.commit()
