@@ -23,13 +23,22 @@ with app.app_context():
 def index():
     if request.method == 'GET':
         posts = POST.query.all()
+        for post in posts:
+            if post.choice:
+                post.display_choice = "返済"
+            else:
+                post.display_choice = "借金"
         return render_template('index.html', posts=posts)
     else:
-        choice = request.form.get('choice', default=False, type=bool)
+        choice = request.form.get('choice')
+        if choice == "返済":
+            choice_value = True
+        else:
+            choice_value = False
         detail = request.form.get('detail')
         due = request.form.get('due')
         due = datetime.strptime(due, '%Y-%m-%d')
-        new_post = POST(choice=choice, detail=detail, due=due)
+        new_post = POST(choice=choice_value, detail=detail, due=due)
 
         db.session.add(new_post)
         db.session.commit()

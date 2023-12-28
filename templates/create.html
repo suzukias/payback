@@ -2,8 +2,11 @@
 
 {% block body %}
 <form action="/" method="POST">
-    <label for="choice">返済かどうか</label>
-    <input type="checkbox" name="choice">
+    <label for="choice">返済/借金</label>
+    <select id="choice" name="choice">
+        <option value="返済">返済</option>
+        <option value="借金">借金</option>
+    </select>
     <label for="due">日付</label>
     <input type="date" name="due">
     <label for="detail">内容</label>
