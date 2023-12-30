@@ -3,10 +3,12 @@
 {% block body %}
 <form action="/" method="POST">
     <label for="choice">返済/借金</label>
-    <select id="choice" name="choice">
+    <select id="choice" name="choice" required>
         <option value="返済">返済</option>
         <option value="借金">借金</option>
     </select>
+    <label for="price">金額</label>
+    <input type="number" name="price" required>
     <label for="date">日付</label>
     <input type="date" name="date">
     <label for="detail">内容</label>

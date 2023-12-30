@@ -10,9 +10,10 @@ db = SQLAlchemy(app)
 
 class POST(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    choice = db.Column(db.Boolean)
+    choice = db.Column(db.Boolean, nullable=False)
+    price = db.Column(db.Integer, nullable=False)
     detail = db.Column(db.String(30))
-    date = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.DateTime)
 
 
 with app.app_context():
@@ -23,22 +24,25 @@ with app.app_context():
 def index():
     if request.method == 'GET':
         posts = POST.query.all()
+        total_price = 0
         for post in posts:
             if post.choice:
                 post.display_choice = "返済"
             else:
                 post.display_choice = "借金"
-        return render_template('index.html', posts=posts)
+            total_price += post.price
+        return render_template('index.html', posts=posts, total_price=total_price)
     else:
         choice = request.form.get('choice')
         if choice == "返済":
             choice_value = True
         else:
             choice_value = False
-        detail = request.form.get('detail')
+        price = request.form.get('price')
         date = request.form.get('date')
         date = datetime.strptime(date, '%Y-%m-%d')
-        new_post = POST(choice=choice_value, detail=detail, date=date)
+        detail = request.form.get('detail')
+        new_post = POST(choice=choice_value, price=price, detail=detail, date=date)
 
         db.session.add(new_post)
         db.session.commit()
