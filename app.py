@@ -12,7 +12,7 @@ class POST(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     choice = db.Column(db.Boolean)
     detail = db.Column(db.String(30))
-    due = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
 
 
 with app.app_context():
@@ -36,9 +36,9 @@ def index():
         else:
             choice_value = False
         detail = request.form.get('detail')
-        due = request.form.get('due')
-        due = datetime.strptime(due, '%Y-%m-%d')
-        new_post = POST(choice=choice_value, detail=detail, due=due)
+        date = request.form.get('date')
+        date = datetime.strptime(date, '%Y-%m-%d')
+        new_post = POST(choice=choice_value, detail=detail, date=date)
 
         db.session.add(new_post)
         db.session.commit()

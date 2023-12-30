@@ -4,7 +4,7 @@
    <h1>借金返済アプリ</h1> 
    {% for post in posts %}
       <p>{{ post.display_choice }}</p>
-      <p>日付： {{ post.due.date() }}</p>
+      <p>日付： {{ post.date.date() }}</p>
       <p>内容： {{ post.detail}}</p>
    {% endfor %}
 {% endblock %}
