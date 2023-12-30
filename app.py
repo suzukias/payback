@@ -28,9 +28,10 @@ def index():
         for post in posts:
             if post.choice:
                 post.display_choice = "返済"
+                total_price -= post.price
             else:
                 post.display_choice = "借金"
-            total_price += post.price
+                total_price += post.price
         return render_template('index.html', posts=posts, total_price=total_price)
     else:
         choice = request.form.get('choice')
@@ -42,7 +43,7 @@ def index():
         date = request.form.get('date')
         date = datetime.strptime(date, '%Y-%m-%d')
         detail = request.form.get('detail')
-        new_post = POST(choice=choice_value, price=price, detail=detail, date=date)
+        new_post = POST(choice=choice_value, price=price, date=date, detail=detail)
 
         db.session.add(new_post)
         db.session.commit()
