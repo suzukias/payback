@@ -3,6 +3,7 @@
 {% block body %}
    <h1>借金返済アプリ</h1> 
    <p class="payback__total">総額: {{ "{:,}".format(total_price) }}円</p>
+   <a href="{{ url_for('create') }}" class="">新規作成</a>
    {% for post in posts|reverse %}
       <p>{{ post.display_choice }}</p>
       <p>金額: {{ "{:,}".format(post.price) }}円</p>
