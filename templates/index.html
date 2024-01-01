@@ -1,14 +1,27 @@
 {% extends 'base.html' %}
 
 {% block body %}
-   <h1>借金返済アプリ</h1> 
-   <p class="payback__total">総額: {{ "{:,}".format(total_price) }}円</p>
-   <a href="{{ url_for('create') }}" class="">新規作成</a>
+   <div class="payback__total-wrap">
+      <p class="payback__total-text">借りている金額</p>
+      <p class="payback__total">¥ {{ "{:,}".format(total_price) }}</p>
+   </div>
+   <a class="payback__create-link" href="{{ url_for('create') }}" class="">新規作成</a>
+   <p class="payback__history">取引履歴</p>
    {% for post in posts|reverse %}
-      <p>{{ post.display_choice }}</p>
-      <p>金額: {{ "{:,}".format(post.price) }}円</p>
-      <p>日付： {{ post.date.date() }}</p>
-      <p>内容： {{ post.detail}}</p>
-      <a href="delete/{{ post.id }}" role="button">削除</a>
+      <div class="payback__history-wrap">
+         <div class="payback__history-content">
+            <div>
+               <p class="payback__history-date">{{ post.date.date() }}</p>
+               <div class="payback__history-price-detail">
+                  <div class="{% if post.display_choice == '返済' %} payback__choice-green {% elif post.display_choice == '借金' %} payback__choice-red {% endif %}">
+                     <p>{{ post.display_choice }}</p>
+                  </div>
+                  <p class="payback__history-price">¥{{ "{:,}".format(post.price) }}</p>
+               </div>
+            </div>
+            <a class="payback__delete" href="delete/{{ post.id }}" role="button">削除</a>
+         </div>
+         <p>詳細：{{ post.detail}}</p>
+      </div>
    {% endfor %}
 {% endblock %}

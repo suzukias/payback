@@ -1,3 +1,78 @@
+p,ul,td,th{
+    margin: 0;
+    padding: 0;
+}
+.payback__total-wrap {
+    background-color: #000;
+    border-radius: 15px;
+    height: 130px;
+    position: relative;
+}
+.payback__total-text {
+    color: darkgray;
+    padding: 10px 0 0 10px;
+}
 .payback__total {
     font-size: 30px;
+    color: #fff;
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.payback__create-link {
+    text-decoration: none;
+    background-color: #26f1aa;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    margin-top: 10px;
+    color: #000;
+    font-weight: bold;
+}
+.payback__history {
+    margin: 10px 0;
+}
+.payback__history-wrap {
+    border: 1px solid darkgray;
+    margin-top: 10px;
+    padding: 10px;
+}
+.payback__history-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.payback__history-price-detail {
+    display: flex;
+    align-items: baseline;
+}
+.payback__choice-green {
+    color: green;
+}
+.payback__choice-red {
+    color: red;
+}
+.payback__history-price {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+.payback__history-date {
+    font-size: 12px;
+}
+.payback__delete {
+    text-decoration: none;
+    color: #fff;
+    background-color: #000;
+    padding: 3px;
+    font-size: 12px;
 }
