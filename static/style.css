@@ -83,8 +83,48 @@ th {
   text-align: center;
 }
 .payback__create-form {
+  padding: 0 20px;
 }
-.payback__create-content-wrap {
+.payback__create-choice {
+  display: flex;
+  justify-content: center;
+}
+.payback__create-choice input {
+  display: none;
+}
+.payback__create-choice label {
+  display: block;
+  width: 70px;
+  margin: 0;
+  padding: 20px;
+  background: #bdc3c7;
+  color: #869198;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  transition: 0.2s;
+}
+.payback__create-choice label:first-of-type {
+  border-radius: 3px 0 0 3px;
+}
+.payback__create-choice label:last-of-type {
+  border-radius: 0 3px 3px 0;
+}
+.payback__create-choice
+  input[type="radio"]:checked
+  + .payback__create-choice-on {
+  background-color: #a1b91d;
+  color: #fff;
+}
+.payback__create-choice
+  input[type="radio"]:checked
+  + .payback__create-choice-off {
+  background-color: #e67168;
+  color: #fff;
+}
+
+.payback__create-content {
   display: flex;
   flex-direction: column;
   margin-top: 35px;

@@ -1,14 +1,13 @@
 {% extends 'base.html' %} {% block body %}
 <h2 class="payback__create">新規登録</h2>
 <form action="/" method="POST" class="payback__create-form">
-  <div>
-    <label for="choice">返済/借金</label>
-    <select id="choice" name="choice" required>
-      <option value="返済">返済</option>
-      <option value="借金">借金</option>
-    </select>
+  <div class="payback__create-choice">
+    <input id="on" value="返済" type="radio" name="choice" checked="" />
+    <label for="on" class="payback__create-choice-on">返済</label>
+    <input id="off" value="借金" type="radio" name="choice" />
+    <label for="off" class="payback__create-choice-off">借金</label>
   </div>
-  <div class="payback__create-content-wrap">
+  <div class="payback__create-content">
     <label for="price">金額</label>
     <div class="payback__create-price">
       <p>¥</p>
@@ -20,11 +19,11 @@
       />
     </div>
   </div>
-  <div class="payback__create-content-wrap">
+  <div class="payback__create-content">
     <label for="date">日付</label>
     <input class="payback__create-box" type="date" name="date" />
   </div>
-  <div class="payback__create-content-wrap">
+  <div class="payback__create-content">
     <label for="detail">詳細</label>
     <input class="payback__create-box" type="text" name="detail" />
   </div>
