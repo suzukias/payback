@@ -1,18 +1,39 @@
-{% extends 'base.html' %}
-
-{% block body %}
-<form action="/" method="POST">
+{% extends 'base.html' %} {% block body %}
+<h2 class="payback__create">新規登録</h2>
+<form action="/" method="POST" class="payback__create-form">
+  <div>
     <label for="choice">返済/借金</label>
     <select id="choice" name="choice" required>
-        <option value="返済">返済</option>
-        <option value="借金">借金</option>
+      <option value="返済">返済</option>
+      <option value="借金">借金</option>
     </select>
+  </div>
+  <div class="payback__create-content-wrap">
     <label for="price">金額</label>
-    <input type="number" name="price" required>
+    <div class="payback__create-price">
+      <p>¥</p>
+      <input
+        class="payback__create-box payback__create-box-price"
+        type="number"
+        name="price"
+        required
+      />
+    </div>
+  </div>
+  <div class="payback__create-content-wrap">
     <label for="date">日付</label>
-    <input type="date" name="date">
-    <label for="detail">内容</label>
-    <input type="text" name="detail">
-    <input type="submit" name="create">
+    <input class="payback__create-box" type="date" name="date" />
+  </div>
+  <div class="payback__create-content-wrap">
+    <label for="detail">詳細</label>
+    <input class="payback__create-box" type="text" name="detail" />
+  </div>
+
+  <input
+    class="payback__create-submit"
+    type="submit"
+    name="create"
+    value="登録する"
+  />
 </form>
 {% endblock %}

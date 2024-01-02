@@ -19,7 +19,7 @@
                   <p class="payback__history-price">¥{{ "{:,}".format(post.price) }}</p>
                </div>
             </div>
-            <a class="payback__delete" href="delete/{{ post.id }}" role="button">削除</a>
+            <a class="payback__delete" href="delete/{{ post.id }}" role="button" onclick="return confirm('本当に削除しますか?');">削除</a>
          </div>
          <p>詳細：{{ post.detail}}</p>
       </div>
