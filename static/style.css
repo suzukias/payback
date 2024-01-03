@@ -5,21 +5,25 @@ th {
   margin: 0;
   padding: 0;
 }
+input,
+select,
+textarea {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
 .payback__total-wrap {
-  background-color: #000;
-  border-radius: 15px;
   height: 130px;
   position: relative;
+  border: 1px solid;
 }
 .payback__total-text {
-  color: darkgray;
+  color: #000;
   padding: 10px 0 0 10px;
 }
 .payback__total {
-  font-size: 30px;
-  color: #fff;
+  font-size: 33px;
   font-weight: bold;
-  color: #fff;
+  color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,14 +35,13 @@ th {
 }
 .payback__create-link {
   text-decoration: none;
-  background-color: #26f1aa;
+  background-color: #000;
   height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 15px;
   margin-top: 10px;
-  color: #000;
+  color: #fff;
   font-weight: bold;
 }
 .payback__history {
@@ -79,8 +82,15 @@ th {
   padding: 3px;
   font-size: 13px;
 }
+.payback__create-arrow {
+  text-decoration: none;
+  font-size: 25px;
+  padding-left: 20px;
+  position: absolute;
+}
 .payback__create {
   text-align: center;
+  margin-top: 0;
 }
 .payback__create-form {
   padding: 0 20px;
