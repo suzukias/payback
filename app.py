@@ -1,11 +1,13 @@
 from datetime import datetime
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 
-
 app = Flask(__name__)
+app.secret_key = 'secretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///payback.db'
 db = SQLAlchemy(app)
+
+PASSWORD = 'ranbo'
 
 
 class POST(db.Model):
@@ -20,21 +22,37 @@ with app.app_context():
     db.create_all()
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    if request.method == 'GET':
-        posts = POST.query.all()
-        total_price = 0
-        for post in posts:
-            if post.choice:
-                post.display_choice = "返済"
-                total_price -= post.price
-            else:
-                post.display_choice = "借金"
-                total_price += post.price
-        return render_template('index.html', posts=posts, total_price=total_price)
+    return render_template('login.html')
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    password = request.form.get('password')
+    if password == PASSWORD:
+        session['logged_in'] = True
+        return redirect('/contents')
     else:
-        choice = request.form.get('choice')
+        return render_template('login.html', error='Invalid password')
+
+
+@app.route('/contents', methods=['GET', 'POST'])
+def contents():
+    if session.get('logged_in'):
+        if request.method == 'GET':
+            posts = POST.query.all()
+            total_price = 0
+            for post in posts:
+                if post.choice:
+                    post.display_choice = "返済"
+                    total_price -= post.price
+                else:
+                    post.display_choice = "借金"
+                    total_price += post.price
+            return render_template('contents.html', posts=posts, total_price=total_price)
+        else:
+            choice = request.form.get('choice')
         if choice == "返済":
             choice_value = True
         else:
@@ -48,21 +66,25 @@ def index():
         db.session.add(new_post)
         db.session.commit()
 
+        return redirect('/contents')
+    else:
         return redirect('/')
 
 
 @app.route('/create')
 def create():
-    return render_template('create.html')
+    if session.get('logged_in'):
+        return render_template('create.html')
+    else:
+        return redirect('/')
 
 
 @app.route('/delete/<int:id>')
 def delete(id):
     post = POST.query.get(id)
-
     db.session.delete(post)
     db.session.commit()
-    return redirect('/')
+    return redirect('/contents')
 
 
 if __name__ == '__main__':

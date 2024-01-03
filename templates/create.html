@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block body %}
-<a class="payback__create-arrow" href="{{ url_for('index') }}" class="">←</a>
+<a class="payback__create-arrow" href="{{ url_for('contents') }}" class="">←</a>
 <h2 class="payback__create">新規登録</h2>
-<form action="/" method="POST" class="payback__create-form">
+<form action="/contents" method="POST" class="payback__create-form">
   <div class="payback__create-choice">
     <input id="on" value="返済" type="radio" name="choice" checked="" />
     <label for="on" class="payback__create-choice-on">返済</label>
