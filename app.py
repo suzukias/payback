@@ -45,7 +45,7 @@ def login():
 def contents():
     if session.get('logged_in'):
         if request.method == 'GET':
-            posts = POST.query.all()
+            posts = POST.query.order_by(POST.date.desc()).all()
             total_price = 0
             for post in posts:
                 if post.choice == "返済":
@@ -90,7 +90,10 @@ def delete(id):
 @app.route('/download/<obj>/')
 def download(obj):
     if obj == 'posts':
-        posts = POST.query.all()
+        posts = POST.query.order_by(POST.date.desc()).all()
+
+        # Reorder posts as needed (e.g., ascending order by date)
+        posts_sorted = sorted(posts, key=lambda x: x.date)
 
         # Create a CSV string using StringIO
         csv_output = StringIO()
@@ -98,7 +101,7 @@ def download(obj):
         csv_writer.writerow(['choice', 'price', 'date', 'detail'])
 
         # Write each POST object's data to the CSV
-        for post in posts:
+        for post in posts_sorted:
             csv_writer.writerow([post.choice, post.price, post.date, post.detail])
 
         # Create the response object and set headers for CSV download
