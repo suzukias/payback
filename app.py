@@ -92,17 +92,28 @@ def download(obj):
     if obj == 'posts':
         posts = POST.query.order_by(POST.date.desc()).all()
 
-        # Reorder posts as needed (e.g., ascending order by date)
-        posts_sorted = sorted(posts, key=lambda x: x.date)
+        # Calculate total price
+        total_price = sum(post.price if post.choice == '借金' else -post.price for post in posts)
+
+        # Store total_price in the database
+        new_post = POST(choice='', price=total_price, date=datetime.now(), detail='Total Price')
+        db.session.add(new_post)
+        db.session.commit()
 
         # Create a CSV string using StringIO
         csv_output = StringIO()
         csv_writer = csv.writer(csv_output)
         csv_writer.writerow(['choice', 'price', 'date', 'detail'])
 
+        # Reorder posts
+        posts_sorted = sorted(posts, key=lambda x: x.date)
+
         # Write each POST object's data to the CSV
         for post in posts_sorted:
-            csv_writer.writerow([post.choice, post.price, post.date, post.detail])
+            formatted_date = post.date.strftime('%Y-%m-%d')
+            csv_writer.writerow([post.choice, post.price, formatted_date, post.detail])
+
+        csv_writer.writerow(['', total_price, datetime.now().date(), '合計額'])
 
         # Create the response object and set headers for CSV download
         response = make_response(csv_output.getvalue())
