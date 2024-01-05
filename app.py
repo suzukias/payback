@@ -53,20 +53,20 @@ def contents():
             return render_template('contents.html', posts=posts, total_price=total_price)
         else:
             choice = request.form.get('choice')
-        if choice == "返済":
-            choice_value = True
-        else:
-            choice_value = False
-        price = request.form.get('price')
-        date = request.form.get('date')
-        date = datetime.strptime(date, '%Y-%m-%d')
-        detail = request.form.get('detail')
-        new_post = POST(choice=choice_value, price=price, date=date, detail=detail)
+            if choice == "返済":
+                choice_value = True
+            else:
+                choice_value = False
+            price = request.form.get('price')
+            date = request.form.get('date')
+            date = datetime.strptime(date, '%Y-%m-%d')
+            detail = request.form.get('detail')
+            new_post = POST(choice=choice_value, price=price, date=date, detail=detail)
 
-        db.session.add(new_post)
-        db.session.commit()
+            db.session.add(new_post)
+            db.session.commit()
 
-        return redirect('/contents')
+            return redirect('/contents')
     else:
         return redirect('/')
 

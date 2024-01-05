@@ -1,27 +1,35 @@
-{% extends 'base.html' %}
-
-{% block body %}
-   <div class="payback__total-wrap">
-      <p class="payback__total-text">借りている金額</p>
-      <p class="payback__total">¥ {{ "{:,}".format(total_price) }}</p>
-   </div>
-   <a class="payback__create-link" href="{{ url_for('create') }}" class="">新規作成</a>
-   <p class="payback__history">取引履歴</p>
-   {% for post in posts|reverse %}
-      <div class="payback__history-wrap">
-         <div class="payback__history-content">
-            <div>
-               <p class="payback__history-date">{{ post.date.date() }}</p>
-               <div class="payback__history-price-detail">
-                  <div class="{% if post.display_choice == '返済' %} payback__choice-green {% elif post.display_choice == '借金' %} payback__choice-red {% endif %}">
-                     <p>{{ post.display_choice }}</p>
-                  </div>
-                  <p class="payback__history-price">¥{{ "{:,}".format(post.price) }}</p>
-               </div>
-            </div>
-            <a class="payback__delete" href="delete/{{ post.id }}" role="button" onclick="return confirm('本当に削除しますか?');">削除</a>
-         </div>
-         <p>詳細：{{ post.detail}}</p>
+{% extends 'base.html' %} {% block body %}
+<p class="payback__contents-title">asumi</p>
+<div class="payback__total-wrap">
+  <p class="payback__total-text">借りている金額</p>
+  <p class="payback__total">¥ {{ "{:,}".format(total_price) }}</p>
+</div>
+<a class="payback__create-link" href="{{ url_for('create') }}" class=""
+  >新規作成</a
+>
+<p class="payback__contents-title">取引履歴</p>
+{% for post in posts|reverse %}
+<div class="payback__history-wrap">
+  <div class="payback__history-content">
+    <div>
+      <p class="payback__history-date">{{ post.date.date() }}</p>
+      <div class="payback__history-price-detail">
+        <div
+          class="{% if post.display_choice == '返済' %} payback__choice-green {% elif post.display_choice == '借金' %} payback__choice-red {% endif %}"
+        >
+          <p>{{ post.display_choice }}</p>
+        </div>
+        <p class="payback__history-price">¥{{ "{:,}".format(post.price) }}</p>
       </div>
-   {% endfor %}
-{% endblock %}
+    </div>
+    <a
+      class="payback__delete"
+      href="delete/{{ post.id }}"
+      role="button"
+      onclick="return confirm('本当に削除しますか?');"
+      >削除</a
+    >
+  </div>
+  <p>詳細：{{ post.detail}}</p>
+</div>
+{% endfor %} {% endblock %}
