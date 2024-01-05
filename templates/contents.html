@@ -1,14 +1,15 @@
 {% extends 'base.html' %} {% block body %}
-<p class="payback__contents-title">asumi</p>
 <div class="payback__total-wrap">
-  <p class="payback__total-text">借りている金額</p>
+  <p class="payback__total-text">asumiが借りている金額</p>
   <p class="payback__total">¥ {{ "{:,}".format(total_price) }}</p>
 </div>
-<a class="payback__create-link" href="{{ url_for('create') }}" class=""
-  >新規作成</a
->
-<p class="payback__contents-title">取引履歴</p>
-<a href="/download/posts/" role="button">ダウンロード</a>
+<a class="payback__create-link" href="{{ url_for('create') }}">新規作成</a>
+<div class="payback__history">
+  <p>取引履歴</p>
+  <a class="payback__download" href="/download/posts/" role="button"
+    >ダウンロード↓</a
+  >
+</div>
 {% for post in posts|reverse %}
 <div class="payback__history-wrap">
   <div class="payback__history-content">

@@ -16,7 +16,7 @@ PASSWORD = 'ranbo'
 
 class POST(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    choice = db.Column(db.Boolean, nullable=False)
+    choice = db.Column(db.String(2), nullable=False)
     price = db.Column(db.Integer, nullable=False)
     detail = db.Column(db.String(30))
     date = db.Column(db.DateTime)
@@ -48,7 +48,7 @@ def contents():
             posts = POST.query.all()
             total_price = 0
             for post in posts:
-                if post.choice:
+                if post.choice == "返済":
                     post.display_choice = "返済"
                     total_price -= post.price
                 else:
@@ -57,15 +57,11 @@ def contents():
             return render_template('contents.html', posts=posts, total_price=total_price)
         else:
             choice = request.form.get('choice')
-            if choice == "返済":
-                choice_value = True
-            else:
-                choice_value = False
             price = request.form.get('price')
             date = request.form.get('date')
             date = datetime.strptime(date, '%Y-%m-%d')
             detail = request.form.get('detail')
-            new_post = POST(choice=choice_value, price=price, date=date, detail=detail)
+            new_post = POST(choice=choice, price=price, date=date, detail=detail)
 
             db.session.add(new_post)
             db.session.commit()

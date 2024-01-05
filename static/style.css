@@ -32,13 +32,14 @@ textarea {
   padding: 25px 0;
 }
 .payback__total-wrap {
-  height: 130px;
+  height: 125px;
   position: relative;
   border: 1px solid;
 }
 .payback__total-text {
   color: #000;
   padding: 10px 0 0 10px;
+  font-size: 15px;
 }
 .payback__total {
   font-size: 33px;
@@ -60,12 +61,23 @@ textarea {
   justify-content: center;
   align-items: center;
   margin-top: 10px;
-  padding: 25px 0;
+  padding: 20px 0;
   color: #fff;
   font-weight: bold;
 }
-.payback__contents-title {
-  margin: 10px 0;
+.payback__history {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.payback__download {
+  color: #fff;
+  background-color: #000;
+  margin-top: 10px;
+  font-size: 10px;
+  text-decoration: none;
+  padding: 3px;
 }
 .payback__history-wrap {
   border: 1px solid darkgray;
