@@ -95,11 +95,6 @@ def download(obj):
         # Calculate total price
         total_price = sum(post.price if post.choice == '借金' else -post.price for post in posts)
 
-        # Store total_price in the database
-        new_post = POST(choice='', price=total_price, date=datetime.now(), detail='Total Price')
-        db.session.add(new_post)
-        db.session.commit()
-
         # Create a CSV string using StringIO
         csv_output = StringIO()
         csv_writer = csv.writer(csv_output)
