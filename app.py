@@ -1,6 +1,10 @@
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
+from io import StringIO
+import csv
+from flask import make_response
+
 
 app = Flask(__name__)
 app.secret_key = 'secretkey'
@@ -85,6 +89,30 @@ def delete(id):
     db.session.delete(post)
     db.session.commit()
     return redirect('/contents')
+
+
+@app.route('/download/<obj>/')
+def download(obj):
+    if obj == 'posts':
+        posts = POST.query.all()
+
+        # Create a CSV string using StringIO
+        csv_output = StringIO()
+        csv_writer = csv.writer(csv_output)
+        csv_writer.writerow(['choice', 'price', 'date', 'detail'])
+
+        # Write each POST object's data to the CSV
+        for post in posts:
+            csv_writer.writerow([post.choice, post.price, post.date, post.detail])
+
+        # Create the response object and set headers for CSV download
+        response = make_response(csv_output.getvalue())
+        response.headers['Content-Disposition'] = f'attachment; filename={obj}.csv'
+        response.headers['Content-Type'] = 'text/csv'
+
+        return response
+
+    return "Invalid request for download"
 
 
 if __name__ == '__main__':
