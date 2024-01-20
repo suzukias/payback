@@ -1,9 +1,8 @@
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, make_response
 from flask_sqlalchemy import SQLAlchemy
 from io import StringIO
 import csv
-from flask import make_response
 
 
 app = Flask(__name__)
